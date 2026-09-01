@@ -66,6 +66,6 @@ The functional test suite checks the important operations and edge cases:
 
 ## Learning reflection
 
-This assignment demonstrates how the choice of data structure affects the operations of a real system. The BST supports organised patient retrieval, the queue models emergency arrival order, the stack retains the most recent treatment first, and the linked list allows each patient to maintain a flexible visit history.
+This assignment demonstrates how the choice of data structure affects the operations of a real system. 
+The BST supports organised patient retrieval, the queue models emergency arrival order, the stack retains the most recent treatment first, and the linked list allows each patient to maintain a flexible visit history.
 
-# Hospital_Emergency_MS
