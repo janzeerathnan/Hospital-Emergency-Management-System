@@ -58,19 +58,19 @@ public class Main {
 
     // MAIN MENU
 
-    public static void displayMainMenu() {
+  public static void displayMainMenu() {
 
-        System.out.println("\n");
-        System.out.println("");
-        System.out.println("   MINI HOSPITAL EMERGENCY MANAGEMENT");
-        System.out.println("");
-        System.out.println("1. Patient Management");
-        System.out.println("2. Emergency Queue");
-        System.out.println("3. Treatment Management");
-        System.out.println("4. Patient Visit History");
-        System.out.println("5. Exit");
-        System.out.println("-------------------------------------------");
-    }
+    System.out.println("\n");
+    System.out.println(" ");
+    System.out.println("   MINI HOSPITAL EMERGENCY MANAGEMENT");
+    System.out.println(" ");
+    System.out.println("1. Patient Management");
+    System.out.println("2. Emergency Queue");
+    System.out.println("3. Treatment Management");
+    System.out.println("4. Patient Visit History");
+    System.out.println("5. Exit");
+    System.out.println(" ");
+}
 
 
     // PATIENT MANAGEMENT
@@ -92,28 +92,33 @@ public class Main {
 
             switch (choice) {
 
-                case 1:
-                    addPatient();
-                    break;
+    case 1:
+        patientManagement();
+        break;
 
-                case 2:
-                    searchPatient();
-                    break;
+    case 2:
+        emergencyQueueManagement();
+        break;
 
-                case 3:
-                    deletePatient();
-                    break;
+    case 3:
+        treatmentManagement();
+        break;
 
-                case 4:
-                    patientBST.displayInOrder();
-                    break;
+    case 4:
+        visitHistoryManagement();
+        break;
 
-                case 5:
-                    break;
+    case 5:
+        System.out.println(
+                "\nThank you for using Mini Hospital Emergency System."
+        );
+        break;
 
-                default:
-                    System.out.println("Invalid choice.");
-            }
+    default:
+        System.out.println(
+                "Invalid choice. Please try again."
+        );
+}
 
         } while (choice != 5);
     }
@@ -271,4 +276,6 @@ public class Main {
             }
         }
     }
+
+    
 }
