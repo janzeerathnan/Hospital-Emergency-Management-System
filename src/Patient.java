@@ -5,6 +5,7 @@ public class Patient {
     private int age;
     private String contactNumber;
     private String medicalCondition;
+    private VisitHistory visitHistory;
 
     public Patient(int patientId, String patientName, int age,
                    String contactNumber, String medicalCondition) {
@@ -14,6 +15,7 @@ public class Patient {
         this.age = age;
         this.contactNumber = contactNumber;
         this.medicalCondition = medicalCondition;
+        this.visitHistory = new VisitHistory();
     }
 
     public int getPatientId() {
@@ -34,6 +36,10 @@ public class Patient {
 
     public String getMedicalCondition() {
         return medicalCondition;
+    }
+
+    public VisitHistory getVisitHistory() {
+        return visitHistory;
     }
 
     public void displayPatient() {

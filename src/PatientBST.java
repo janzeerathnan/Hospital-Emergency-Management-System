@@ -25,6 +25,11 @@ public class PatientBST {
 
     public void insert(Patient patient) {
 
+        if (search(patient.getPatientId()) != null) {
+            System.out.println("Patient ID already exists.");
+            return;
+        }
+
         root = insertHelper(root, patient);
 
         System.out.println("Patient added successfully.");
@@ -49,12 +54,6 @@ public class PatientBST {
             node.right = insertHelper(node.right, patient);
 
         }
-        // Duplicate ID
-        else {
-
-            System.out.println("Patient ID already exists.");
-        }
-
         return node;
     }
 

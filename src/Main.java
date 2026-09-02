@@ -1,281 +1,205 @@
 import java.util.Scanner;
 
 public class Main {
-
-    static Scanner scanner = new Scanner(System.in);
-
-    static PatientBST patientBST = new PatientBST();
-    static EmergencyQueue emergencyQueue = new EmergencyQueue();
+    private static final Scanner scanner = new Scanner(System.in);
+    private static final PatientBST patientBST = new PatientBST();
+    private static final EmergencyQueue emergencyQueue = new EmergencyQueue();
+    private static final TreatmentStack treatmentStack = new TreatmentStack();
 
     public static void main(String[] args) {
-
         int choice;
-
         do {
-
             displayMainMenu();
-
             choice = getIntInput("Enter your choice: ");
-
             switch (choice) {
-
-                case 1:
-                    patientManagement();
-                    break;
-
-                case 2:
-                    emergencyQueueManagement();
-                    break;
-
-                case 3:
-                    System.out.println(
-                            "Treatment Management will be implemented on Day 2."
-                    );
-                    break;
-
-                case 4:
-                    System.out.println(
-                            "Patient Visit History will be implemented on Day 2."
-                    );
-                    break;
-
-                case 5:
-                    System.out.println(
-                            "\nThank you for using Mini Hospital Emergency System."
-                    );
-                    break;
-
-                default:
-                    System.out.println(
-                            "Invalid choice. Please try again."
-                    );
+                case 1: patientManagement(); break;
+                case 2: emergencyQueueManagement(); break;
+                case 3: treatmentManagement(); break;
+                case 4: visitHistoryManagement(); break;
+                case 5: System.out.println("\nThank you for using the Mini Hospital Emergency Management System."); break;
+                default: System.out.println("Invalid choice. Please try again.");
             }
-
         } while (choice != 5);
-
         scanner.close();
     }
 
-    // MAIN MENU
+    private static void displayMainMenu() {
+        System.out.println("\n    MINI HOSPITAL EMERGENCY MANAGEMENT   ");
+        System.out.println("1. Patient Management (BST)");
+        System.out.println("2. Emergency Queue");
+        System.out.println("3. Treatment History (Stack)");
+        System.out.println("4. Patient Visit History (Linked List)");
+        System.out.println("5. Exit");
+    }
 
-  public static void displayMainMenu() {
-
-    System.out.println("\n");
-    System.out.println(" ");
-    System.out.println("   MINI HOSPITAL EMERGENCY MANAGEMENT");
-    System.out.println(" ");
-    System.out.println("1. Patient Management");
-    System.out.println("2. Emergency Queue");
-    System.out.println("3. Treatment Management");
-    System.out.println("4. Patient Visit History");
-    System.out.println("5. Exit");
-    System.out.println(" ");
-}
-
-
-    // PATIENT MANAGEMENT
-
-    public static void patientManagement() {
-
+    private static void patientManagement() {
         int choice;
-
         do {
-
-            System.out.println("\n------ PATIENT MANAGEMENT ------");
-            System.out.println("1. Add New Patient");
-            System.out.println("2. Search Patient");
-            System.out.println("3. Delete Patient");
-            System.out.println("4. Display All Patients");
-            System.out.println("5. Back");
-
+            System.out.println("\n------ PATIENT MANAGEMENT (BST) ------");
+            System.out.println("1. Add New Patient\n2. Search Patient\n3. Delete Patient\n4. Display All Patients (In-order)\n5. Back");
             choice = getIntInput("Enter your choice: ");
-
             switch (choice) {
-
-    case 1:
-        patientManagement();
-        break;
-
-    case 2:
-        emergencyQueueManagement();
-        break;
-
-    case 3:
-        treatmentManagement();
-        break;
-
-    case 4:
-        visitHistoryManagement();
-        break;
-
-    case 5:
-        System.out.println(
-                "\nThank you for using Mini Hospital Emergency System."
-        );
-        break;
-
-    default:
-        System.out.println(
-                "Invalid choice. Please try again."
-        );
-}
-
+                case 1: addPatient(); break;
+                case 2: searchPatient(); break;
+                case 3: deletePatient(); break;
+                case 4: patientBST.displayInOrder(); break;
+                case 5: break;
+                default: System.out.println("Invalid choice. Please try again.");
+            }
         } while (choice != 5);
     }
 
-    // ADD PATIENT
-
-    public static void addPatient() {
-
+    private static void addPatient() {
         System.out.println("\n----- ADD NEW PATIENT -----");
-
         int id = getIntInput("Enter Patient ID: ");
-
-        scanner.nextLine();
-
-        System.out.print("Enter Patient Name: ");
-        String name = scanner.nextLine();
-
+        String name = getTextInput("Enter Patient Name: ");
         int age = getIntInput("Enter Age: ");
-
-        scanner.nextLine();
-
-        System.out.print("Enter Contact Number: ");
-        String contact = scanner.nextLine();
-
-        System.out.print("Enter Medical Condition: ");
-        String condition = scanner.nextLine();
-
-        Patient patient = new Patient(
-                id,
-                name,
-                age,
-                contact,
-                condition
-        );
-
-        patientBST.insert(patient);
+        String contact = getTextInput("Enter Contact Number: ");
+        String condition = getTextInput("Enter Medical Condition: ");
+        patientBST.insert(new Patient(id, name, age, contact, condition));
     }
 
-    // SEARCH PATIENT
-
-    public static void searchPatient() {
-
-        System.out.println("\n===== SEARCH PATIENT =====");
-
-        int id = getIntInput("Enter Patient ID: ");
-
-        Patient patient = patientBST.search(id);
-
-        if (patient != null) {
-
-            System.out.println("\nPatient found:");
-            patient.displayPatient();
-
-        } else {
-
-            System.out.println("Patient not found.");
-        }
+    private static void searchPatient() {
+        System.out.println("\n------ SEARCH PATIENT ------");
+        Patient patient = patientBST.search(getIntInput("Enter Patient ID: "));
+        if (patient == null) System.out.println("Patient not found.");
+        else { System.out.println("\nPatient found:"); patient.displayPatient(); }
     }
 
-    // DELETE PATIENT
-
-    public static void deletePatient() {
-
-        System.out.println("\n===== DELETE PATIENT =====");
-
-        int id = getIntInput("Enter Patient ID: ");
-
-        patientBST.delete(id);
+    private static void deletePatient() {
+        System.out.println("\n------ DELETE PATIENT ------");
+        patientBST.delete(getIntInput("Enter Patient ID: "));
     }
 
-    // EMERGENCY QUEUE MENU
-
-    public static void emergencyQueueManagement() {
-
+    private static void emergencyQueueManagement() {
         int choice;
-
         do {
-
-            System.out.println("\n===== EMERGENCY QUEUE =====");
-            System.out.println("1. Add Patient to Queue");
-            System.out.println("2. Treat Next Patient");
-            System.out.println("3. Display Waiting Queue");
-            System.out.println("4. Back");
-
+            System.out.println("\n------ EMERGENCY QUEUE (FIFO) ------");
+            System.out.println("1. Add Patient to Queue\n2. Treat Next Patient\n3. Display Waiting Queue\n4. Back");
             choice = getIntInput("Enter your choice: ");
-
             switch (choice) {
-
-                case 1:
-                    addPatientToQueue();
-                    break;
-
-                case 2:
-                    emergencyQueue.dequeue();
-                    break;
-
-                case 3:
-                    emergencyQueue.displayQueue();
-                    break;
-
-                case 4:
-                    break;
-
-                default:
-                    System.out.println("Invalid choice.");
+                case 1: addPatientToQueue(); break;
+                case 2: treatNextPatient(); break;
+                case 3: emergencyQueue.displayQueue(); break;
+                case 4: break;
+                default: System.out.println("Invalid choice. Please try again.");
             }
-
         } while (choice != 4);
     }
 
-
-    // ADD PATIENT TO QUEUE
-
-    public static void addPatientToQueue() {
-
-        System.out.println("\n===== ADD TO EMERGENCY QUEUE =====");
-
-        int id = getIntInput("Enter Patient ID: ");
-
-        Patient patient = patientBST.search(id);
-
-        if (patient == null) {
-
-            System.out.println(
-                    "Patient does not exist in the patient records."
-            );
-
-            return;
-        }
-
+    private static void addPatientToQueue() {
+        System.out.println("\n------ ADD TO EMERGENCY QUEUE ------");
+        Patient patient = patientBST.search(getIntInput("Enter Patient ID: "));
+        if (patient == null) { System.out.println("Patient does not exist in the patient records."); return; }
         emergencyQueue.enqueue(patient);
     }
 
-    // INTEGER INPUT
+    private static void treatNextPatient() {
+        Patient patient = emergencyQueue.dequeue();
+        if (patient == null) return;
+        System.out.println("\nEnter completed-treatment details for " + patient.getPatientName() + ".");
+        addTreatmentRecord(patient);
+    }
 
-    public static int getIntInput(String message) {
-
-        while (true) {
-
-            System.out.print(message);
-
-            if (scanner.hasNextInt()) {
-
-                int value = scanner.nextInt();
-
-                return value;
-
-            } else {
-
-                System.out.println(
-                        "Invalid input. Please enter a number."
-                );
-
-                scanner.next();
+    private static void treatmentManagement() {
+        int choice;
+        do {
+            System.out.println("\n------ TREATMENT HISTORY (LIFO STACK) ------");
+            System.out.println("1. Add Completed Treatment Record\n2. Remove Latest Treatment Record\n3. Display Treatment History\n4. Back");
+            choice = getIntInput("Enter your choice: ");
+            switch (choice) {
+                case 1:
+                    Patient patient = patientBST.search(getIntInput("Enter Patient ID: "));
+                    if (patient == null) System.out.println("Patient not found."); else addTreatmentRecord(patient);
+                    break;
+                case 2: treatmentStack.pop(); break;
+                case 3: treatmentStack.displayStack(); break;
+                case 4: break;
+                default: System.out.println("Invalid choice. Please try again.");
             }
+        } while (choice != 4);
+    }
+
+    private static void addTreatmentRecord(Patient patient) {
+        System.out.println("\n------ COMPLETE TREATMENT ------");
+        int treatmentId = getIntInput("Enter Treatment ID: ");
+        String doctor = getTextInput("Enter Doctor Name: ");
+        String diagnosis = getTextInput("Enter Diagnosis: ");
+        String treatment = getTextInput("Enter Treatment: ");
+        String date = getTextInput("Enter Treatment Date: ");
+        treatmentStack.push(new TreatmentRecord(treatmentId, patient.getPatientId(), patient.getPatientName(), doctor, diagnosis, treatment, date));
+    }
+
+    private static void visitHistoryManagement() {
+        int choice;
+        do {
+            System.out.println("\n------ PATIENT VISIT HISTORY (LINKED LIST) ------");
+            System.out.println("1. Add New Visit\n2. Remove Visit\n3. Search Visit\n4. Display Visit History\n5. Back");
+            choice = getIntInput("Enter your choice: ");
+            switch (choice) {
+                case 1: addVisit(); break;
+                case 2: removeVisit(); break;
+                case 3: searchVisit(); break;
+                case 4: displayVisitHistory(); break;
+                case 5: break;
+                default: System.out.println("Invalid choice. Please try again.");
+            }
+        } while (choice != 5);
+    }
+
+    private static Patient getPatientForVisitHistory() {
+        Patient patient = patientBST.search(getIntInput("Enter Patient ID: "));
+        if (patient == null) System.out.println("Patient not found.");
+        return patient;
+    }
+
+    private static void addVisit() {
+        System.out.println("\n------ ADD NEW VISIT ------");
+        Patient patient = getPatientForVisitHistory();
+        if (patient == null) return;
+        int visitId = getIntInput("Enter Visit ID: ");
+        String date = getTextInput("Enter Visit Date: ");
+        String doctor = getTextInput("Enter Doctor Name: ");
+        String diagnosis = getTextInput("Enter Diagnosis: ");
+        String treatment = getTextInput("Enter Treatment: ");
+        patient.getVisitHistory().addVisit(new Visit(visitId, date, doctor, diagnosis, treatment));
+    }
+
+    private static void removeVisit() {
+        System.out.println("\n------ REMOVE VISIT ------");
+        Patient patient = getPatientForVisitHistory();
+        if (patient != null) patient.getVisitHistory().removeVisit(getIntInput("Enter Visit ID: "));
+    }
+
+    private static void searchVisit() {
+        System.out.println("\n------ SEARCH VISIT ------");
+        Patient patient = getPatientForVisitHistory();
+        if (patient == null) return;
+        Visit visit = patient.getVisitHistory().searchVisit(getIntInput("Enter Visit ID: "));
+        if (visit == null) System.out.println("Visit not found.");
+        else { System.out.println("\nVisit found:"); visit.displayVisit(); }
+    }
+
+    private static void displayVisitHistory() {
+        System.out.println("\n------ DISPLAY VISIT HISTORY ------");
+        Patient patient = getPatientForVisitHistory();
+        if (patient != null) patient.getVisitHistory().displayHistory();
+    }
+
+    private static int getIntInput(String message) {
+        while (true) {
+            System.out.print(message);
+            try { return Integer.parseInt(scanner.nextLine().trim()); }
+            catch (NumberFormatException exception) { System.out.println("Invalid input. Please enter a whole number."); }
         }
     }
 
-    
+    private static String getTextInput(String message) {
+        while (true) {
+            System.out.print(message);
+            String input = scanner.nextLine().trim();
+            if (!input.isEmpty()) return input;
+            System.out.println("This value cannot be empty.");
+        }
+    }
 }
