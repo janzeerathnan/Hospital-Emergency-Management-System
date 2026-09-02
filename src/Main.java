@@ -25,17 +25,17 @@ public class Main {
 
     private static void displayMainMenu() {
         System.out.println("\n    MINI HOSPITAL EMERGENCY MANAGEMENT   ");
-        System.out.println("1. Patient Management (BST)");
-        System.out.println("2. Emergency Queue");
-        System.out.println("3. Treatment History (Stack)");
-        System.out.println("4. Patient Visit History (Linked List)");
+        System.out.println("1. Patient Management ");
+        System.out.println("2. Emergency");
+        System.out.println("3. Treatment History");
+        System.out.println("4. Patient Visit History");
         System.out.println("5. Exit");
     }
 
     private static void patientManagement() {
         int choice;
         do {
-            System.out.println("\n------ PATIENT MANAGEMENT (BST) ------");
+            System.out.println("\n------ PATIENT MANAGEMENT ------");
             System.out.println("1. Add New Patient\n2. Search Patient\n3. Delete Patient\n4. Display All Patients (In-order)\n5. Back");
             choice = getIntInput("Enter your choice: ");
             switch (choice) {
@@ -74,7 +74,7 @@ public class Main {
     private static void emergencyQueueManagement() {
         int choice;
         do {
-            System.out.println("\n------ EMERGENCY QUEUE (FIFO) ------");
+            System.out.println("\n------ EMERGENCY QUEUE ------");
             System.out.println("1. Add Patient to Queue\n2. Treat Next Patient\n3. Display Waiting Queue\n4. Back");
             choice = getIntInput("Enter your choice: ");
             switch (choice) {
@@ -104,7 +104,7 @@ public class Main {
     private static void treatmentManagement() {
         int choice;
         do {
-            System.out.println("\n------ TREATMENT HISTORY (LIFO STACK) ------");
+            System.out.println("\n------ TREATMENT HISTORY ------");
             System.out.println("1. Add Completed Treatment Record\n2. Remove Latest Treatment Record\n3. Display Treatment History\n4. Back");
             choice = getIntInput("Enter your choice: ");
             switch (choice) {
@@ -133,7 +133,7 @@ public class Main {
     private static void visitHistoryManagement() {
         int choice;
         do {
-            System.out.println("\n------ PATIENT VISIT HISTORY (LINKED LIST) ------");
+            System.out.println("\n------ PATIENT VISIT HISTORY ------");
             System.out.println("1. Add New Visit\n2. Remove Visit\n3. Search Visit\n4. Display Visit History\n5. Back");
             choice = getIntInput("Enter your choice: ");
             switch (choice) {
